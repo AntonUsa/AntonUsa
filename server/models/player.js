@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
     firstName: DataTypes.STRING,
     lastName: DataTypes.STRING,
     image: DataTypes.STRING,
-    nft_id: DataTypes.STRING
+    tokenId: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Player',

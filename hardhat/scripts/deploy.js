@@ -8,8 +8,8 @@ async function main() {
 
   const lockedAmount = hre.ethers.utils.parseEther("1");
 
-  const Lock = await hre.ethers.getContractFactory("ERC20");
-  const lock = await Lock.deploy("Tennis", "TN");
+  const Lock = await hre.ethers.getContractFactory("MyToken");
+  const lock = await Lock.deploy();
 
   await lock.deployed();
 

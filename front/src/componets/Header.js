@@ -4,9 +4,10 @@ import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
+import { useNavigate } from 'react-router-dom';
 
 function Header({ walletConnectHandler, owner, wallet }) {
-
+    const navigate = useNavigate();
     return (
         <>
             <Box
@@ -35,8 +36,8 @@ function Header({ walletConnectHandler, owner, wallet }) {
                         spacing={ 2 }
                         justifyContent="center"
                     >
-                        <Button onClick={() => { walletConnectHandler() }} variant="contained">Connect Wallet</Button>
-                        { owner === wallet ? <Button variant="outlined">Add Player</Button> : null }
+                        { !wallet ? <Button onClick={() => { walletConnectHandler() }} variant="contained">Connect Wallet</Button> : null }
+                        { owner === wallet ? <Button onClick={() => { navigate('/add/player') }} variant="outlined">Add Player</Button> : null }
                     </Stack>
                 </Container>
             </Box>

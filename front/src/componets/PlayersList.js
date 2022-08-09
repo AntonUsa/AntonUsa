@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
@@ -10,28 +10,39 @@ import Container from '@mui/material/Container';
 
 function PlayersList(props) {
     const cards = [1, 2, 3];
+    const [players, setPlayers] = React.useState([]);
+
+    const playersInit = async () => {
+        const data = await fetch('http://localhost:3000/players');
+        const players = await data.json();
+        setPlayers(players);
+        console.log(players);
+    }
+
+    useEffect( () => {
+        playersInit();
+    }, []);
 
     return (
         <>
             <Container maxWidth="md">
                 <Grid container spacing={ 4 }>
-                    { cards.map((card) => (
-                        <Grid item key={ card } xs={ 12 } sm={ 6 } md={ 4 }>
+                    { players.map((player) => (
+                        <Grid item key={ player.tokenId } xs={ 12 } sm={ 6 } md={ 4 }>
                             <Card
                                 sx={ { height: '100%', display: 'flex', flexDirection: 'column' } }
                             >
                                 <CardMedia
                                     component="img"
-                                    image="https://source.unsplash.com/random"
+                                    image={ 'http://localhost:3000/image/' + player.image }
                                     alt="random"
                                 />
                                 <CardContent sx={ { flexGrow: 1 } }>
                                     <Typography gutterBottom variant="h5" component="h2">
-                                        Heading
+                                        { player.firstName }
                                     </Typography>
                                     <Typography>
-                                        This is a media card. You can use this section to describe the
-                                        content.
+                                        { player.lastName }
                                     </Typography>
                                 </CardContent>
                                 <CardActions>
