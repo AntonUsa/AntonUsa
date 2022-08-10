@@ -17,7 +17,9 @@ module.exports = (sequelize, DataTypes) => {
     firstName: DataTypes.STRING,
     lastName: DataTypes.STRING,
     image: DataTypes.STRING,
-    tokenId: DataTypes.STRING
+    price: DataTypes.STRING,
+    tokenId: DataTypes.STRING,
+    owner: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'Player',

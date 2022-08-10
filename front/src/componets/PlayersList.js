@@ -27,8 +27,8 @@ function PlayersList(props) {
         <>
             <Container maxWidth="md">
                 <Grid container spacing={ 4 }>
-                    { players.map((player) => (
-                        <Grid item key={ player.tokenId } xs={ 12 } sm={ 6 } md={ 4 }>
+                    { players.map((player, index) => (
+                        <Grid item key={ index } xs={ 12 } sm={ 6 } md={ 4 }>
                             <Card
                                 sx={ { height: '100%', display: 'flex', flexDirection: 'column' } }
                             >
@@ -45,9 +45,11 @@ function PlayersList(props) {
                                         { player.lastName }
                                     </Typography>
                                 </CardContent>
-                                <CardActions>
-                                    <Button size="small">View</Button>
-                                    <Button size="small">Edit</Button>
+                                <CardActions sx={{ justifyContent: 'space-between' }}>
+                                    <Button variant="contained" size="small">Buy</Button>
+                                    <Typography >
+                                        Price: { player.price }
+                                    </Typography>
                                 </CardActions>
                             </Card>
                         </Grid>

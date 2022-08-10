@@ -22,6 +22,7 @@ export default function App() {
         const { ethereum } = window;
         const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
         setWallet(accounts[0]);
+        localStorage.setItem('walletConnected', true);
     }
 
     window.ethereum.on('accountsChanged', (accounts) => setWallet(accounts[0]));
@@ -39,6 +40,11 @@ export default function App() {
     useEffect(() => {
         console.log('useEffect');
         updateEthers();
+
+        if(localStorage.getItem('walletConnected') === 'true' && wallet === null) {
+            walletConnectHandler();
+        }
+
     }, [])
 
     return (

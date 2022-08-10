@@ -15,6 +15,7 @@ function PlayerAdd({ owner, wallet }) {
     const [lastName, setLastName] = useState('');
     const [imageUrl, setImageUrl] = useState('');
     const [isSubmitted, setIsSubmitted] = useState(false);
+    const [price, setPrice] = useState(0);
 
     useEffect(() => {
         if(owner != wallet){
@@ -26,19 +27,19 @@ function PlayerAdd({ owner, wallet }) {
         e.preventDefault();
         setIsSubmitted(true);
 
-        const provider = new ethers.providers.JsonRpcProvider();
-        const signer = provider.getSigner();
-        // 0x5FbDB2315678afecb367f032d93F642f64180aa3
-        const daiContract = new ethers.Contract('0x5fbdb2315678afecb367f032d93f642f64180aa3', MyToken.abi, signer);
-        await daiContract.safeMint(owner);
-        const tokenId = await daiContract.getCurrentTokenId();
+        // const provider = new ethers.providers.JsonRpcProvider();
+        // const signer = provider.getSigner();
+        // // 0x5FbDB2315678afecb367f032d93F642f64180aa3
+        // const daiContract = new ethers.Contract('0x5fbdb2315678afecb367f032d93f642f64180aa3', MyToken.abi, signer);
+        // await daiContract.safeMint(owner);
+        // const tokenId = await daiContract.getCurrentTokenId();
 
         const formData = new FormData();
         formData.append('firstName', firstName);
         formData.append('lastName', lastName);
         formData.append('image', imageUrl);
         formData.append('owner', owner);
-        formData.append('tokenId', tokenId.toNumber() - 1);
+        formData.append('price', price);
         fetch('http://localhost:3000/add/player', {
             method: 'POST',
             body: formData
@@ -80,6 +81,17 @@ function PlayerAdd({ owner, wallet }) {
                         onChange={ (e) => setLastName(e.target.value) }
                         variant="standard"/>
 
+                    <TextField
+                        id="standard-basic"
+                        fullWidth={ true }
+                        size={ 'medium' }
+                        label="Number"
+                        type="number"
+                        variant="standard"
+                        sx={ { margin: '10px' } }
+                        onChange={ (e) => setPrice(e.target.value) }
+                    />
+
                     <Button
                         sx={ { margin: '10px' } }
                         variant="contained"
@@ -97,7 +109,7 @@ function PlayerAdd({ owner, wallet }) {
 
                 <Grid item xs={ 12 } sm={ 12 } md={ 12 } mt={ 4 }>
                     { !isSubmitted ? <Button sx={ { margin: '10px' } } variant="contained"
-                                           onClick={ (e) => handleSubmit(e) }>Contained</Button> : null}
+                                           onClick={ (e) => handleSubmit(e) }>Save</Button> : null}
 
                 </Grid>
             </Container>

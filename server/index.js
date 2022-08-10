@@ -31,12 +31,13 @@ app.post('/add/player', isAdmin, (req, res) => {
         }
     });
 
-    const { firstName, lastName, image, tokenId } = req.body;
+    const { firstName, lastName, price, owner } = req.body;
     db.Player.create({
         firstName,
         lastName,
         fileName,
-        tokenId,
+        price,
+        owner,
         image: fileName
     });
 
