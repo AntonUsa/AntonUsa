@@ -56,6 +56,12 @@ app.get('/players', async (req, res) => {
     res.status(200).json(players);
 });
 
+app.get('/set/owner', async (req, res) => {
+    res.status(200).json({
+        owner: '0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266'
+    });
+})
+
 
 app.listen(port, () => {
     console.log(`Listening on port http://localhost:${port}`);

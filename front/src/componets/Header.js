@@ -36,7 +36,7 @@ function Header({ walletConnectHandler, owner, wallet }) {
                         spacing={ 2 }
                         justifyContent="center"
                     >
-                        { !wallet ? <Button onClick={() => { walletConnectHandler() }} variant="contained">Connect Wallet</Button> : null }
+
                         { owner === wallet ? <Button onClick={() => { navigate('/add/player') }} variant="outlined">Add Player</Button> : null }
                     </Stack>
                 </Container>

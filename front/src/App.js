@@ -4,9 +4,7 @@ import Nav from './componets/Nav';
 import Footer from './componets/Footer';
 import PlayersList from './componets/PlayersList';
 import Header from './componets/Header';
-import { ethers } from "ethers";
 import { useEffect } from 'react';
-import TennisERC20 from './abi/TennisERC20.json';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import PlayerAdd from './componets/PlayerAdd';
 
@@ -14,9 +12,7 @@ const theme = createTheme();
 
 export default function App() {
     const [owner, setOwner] = React.useState('0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266');
-    const [players, setPlayers] = React.useState([]);
     const [wallet, setWallet] = React.useState(null);
-
 
     const walletConnectHandler = async () => {
         const { ethereum } = window;
@@ -25,34 +21,33 @@ export default function App() {
         localStorage.setItem('walletConnected', true);
     }
 
-    window.ethereum.on('accountsChanged', (accounts) => setWallet(accounts[0]));
+    const setOwnerHandler = async () => {
+        const data = await fetch('http://localhost:3000/set/owner');
+        const { owner } = await data.json();
+        setOwner(owner);
+    };
 
-    const updateEthers = async () => {
-        // const provider = new ethers.providers.JsonRpcProvider();
-        // const signer = provider.getSigner();
-        // // 0x5FbDB2315678afecb367f032d93F642f64180aa3
-        // const daiContract = new ethers.Contract('0x5FbDB2315678afecb367f032d93F642f64180aa3', TennisERC20.abi, signer);
-        // await daiContract.mint(owner, ethers.utils.parseEther('1'));
-        // const balanceOf = await daiContract.balanceOf(owner);
-        // console.log(balanceOf);
+    const logoutHandler = () => {
+        localStorage.removeItem('walletConnected');
+        setWallet(null);
     }
 
+    window.ethereum.on('accountsChanged', (accounts) => setWallet(accounts[0]));
+
     useEffect(() => {
-        console.log('useEffect');
-        updateEthers();
+        setOwnerHandler();
 
         if(localStorage.getItem('walletConnected') === 'true' && wallet === null) {
             walletConnectHandler();
         }
-
     }, [])
 
     return (
         <ThemeProvider theme={ theme }>
             <main>
                 <BrowserRouter>
-                    <Nav/>
-                    <Header wallet={wallet} owner={owner} walletConnectHandler={walletConnectHandler} />
+                    <Nav wallet={wallet} owner={owner} walletConnectHandler={walletConnectHandler} logoutHandle={logoutHandler}/>
+                    <Header wallet={wallet} owner={owner}  />
                     <Routes>
                         <Route path="/" element={<PlayersList />} />
                         <Route path="/add/player" element={<PlayerAdd owner={owner} wallet={wallet} />} />
