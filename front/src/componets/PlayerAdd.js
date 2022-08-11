@@ -34,7 +34,7 @@ function PlayerAdd({ owner, wallet }) {
         formData.append('image', imageUrl);
         formData.append('owner', owner);
         formData.append('price', price);
-        fetch('http://localhost:3000/add/player', {
+        fetch('http://91.219.62.94:3000/add/player', {
             method: 'POST',
             body: formData
         }).then(res => res.json()).then(data => {
