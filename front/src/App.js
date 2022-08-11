@@ -11,9 +11,9 @@ import PlayerAdd from './componets/PlayerAdd';
 const theme = createTheme();
 
 export default function App() {
-    const [owner, setOwner] = React.useState('0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266');
+    const [owner, setOwner] = React.useState('');
     const [wallet, setWallet] = React.useState(null);
-
+    const [contractAddress, setContractAddress] = React.useState('');
     const walletConnectHandler = async () => {
         const { ethereum } = window;
         const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
@@ -22,9 +22,10 @@ export default function App() {
     }
 
     const setOwnerHandler = async () => {
-        const data = await fetch('http://localhost:3000/set/owner');
-        const { owner } = await data.json();
+        const data = await fetch('http://localhost:3000/data/init');
+        const { owner, contractAddress } = await data.json();
         setOwner(owner);
+        setContractAddress(contractAddress);
     };
 
     const logoutHandler = () => {
@@ -47,9 +48,9 @@ export default function App() {
             <main>
                 <BrowserRouter>
                     <Nav wallet={wallet} owner={owner} walletConnectHandler={walletConnectHandler} logoutHandle={logoutHandler}/>
-                    <Header wallet={wallet} owner={owner}  />
+                    <Header wallet={wallet} owner={owner} />
                     <Routes>
-                        <Route path="/" element={<PlayersList />} />
+                        <Route path="/" element={<PlayersList wallet={wallet} walletConnectHandler={walletConnectHandler} contractAddress={contractAddress} />} />
                         <Route path="/add/player" element={<PlayerAdd owner={owner} wallet={wallet} />} />
                     </Routes>
                 </BrowserRouter>

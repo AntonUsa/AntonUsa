@@ -13,7 +13,7 @@ contract MyToken is ERC721, ERC721Burnable, Ownable {
 
     constructor() ERC721("MyToken", "MTK") {}
 
-    function safeMint(address to) public onlyOwner {
+    function safeMint(address to) public payable {
         uint256 tokenId = _tokenIdCounter.current();
         _tokenIdCounter.increment();
         _safeMint(to, tokenId);

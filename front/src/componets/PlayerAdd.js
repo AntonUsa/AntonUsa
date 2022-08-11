@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
-import MyToken from '../abi/MyToken.json';
+
 import { useNavigate } from "react-router-dom";
 import { Input, InputLabel, TextField } from '@mui/material';
 import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import { ethers } from 'ethers';
+
 
 function PlayerAdd({ owner, wallet }) {
     //"content-type": "multipart/form-data",
@@ -27,12 +26,7 @@ function PlayerAdd({ owner, wallet }) {
         e.preventDefault();
         setIsSubmitted(true);
 
-        // const provider = new ethers.providers.JsonRpcProvider();
-        // const signer = provider.getSigner();
-        // // 0x5FbDB2315678afecb367f032d93F642f64180aa3
-        // const daiContract = new ethers.Contract('0x5fbdb2315678afecb367f032d93f642f64180aa3', MyToken.abi, signer);
-        // await daiContract.safeMint(owner);
-        // const tokenId = await daiContract.getCurrentTokenId();
+
 
         const formData = new FormData();
         formData.append('firstName', firstName);

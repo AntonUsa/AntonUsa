@@ -34,13 +34,14 @@ function Nav({ wallet, walletConnectHandler, logoutHandle }) {
             <AppBar position="static">
                 <Toolbar>
                     <IconButton
+                        onClick={() => {navigate('/')}}
                         size="large"
                         edge="start"
                         color="inherit"
                         aria-label="menu"
                         sx={{ mr: 2 }}
                     >
-                        <MenuIcon onClick={() => {navigate('/')}} />
+                        <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                         Tennis Game

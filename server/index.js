@@ -2,6 +2,9 @@ const express = require('express');
 const cors = require('cors');
 const db = require('./models');
 const fileupload = require("express-fileupload");
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 const app = express();
 
@@ -56,11 +59,32 @@ app.get('/players', async (req, res) => {
     res.status(200).json(players);
 });
 
-app.get('/set/owner', async (req, res) => {
+app.get('/data/init', async (req, res) => {
+    const owner = process.env.OWNER_ADDRESS || '0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266';
+    const contractAddress = process.env.CONTRACT_ADDRESS || '0x8d12A197cB00D4747a1fe03395095ce2A5D06CE3';
     res.status(200).json({
-        owner: '0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266'
+        owner,
+        contractAddress,
     });
-})
+});
+
+app.post('/buy/player', async (req, res) => {
+    const { playerId, newOwner, tokenId } = req.body;
+    const player = await db.Player.update({
+        owner: newOwner,
+        tokenId
+    }, {
+        where: {
+            id: playerId
+        }
+    });
+
+    res.status(200).json({
+        message: 'Success',
+        status: 'success',
+        player
+    });
+});
 
 
 app.listen(port, () => {
