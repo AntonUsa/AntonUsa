@@ -14,7 +14,7 @@ function PlayersList({ wallet, walletConnectHandler, contractAddress }) {
     const [players, setPlayers] = React.useState([]);
 
     const playersInit = async () => {
-        const data = await fetch('http://localhost:3000/players');
+        const data = await fetch('http://91.219.62.94:3000/players');
         const players = await data.json();
         setPlayers(players);
     };
@@ -35,7 +35,7 @@ function PlayersList({ wallet, walletConnectHandler, contractAddress }) {
         formData.append('tokenId', tokenId - 1);
         formData.append('newOwner', wallet);
         formData.append('playerId', player.id);
-        fetch('http://localhost:3000/buy/player', {
+        fetch('http://91.219.62.94:3000/buy/player', {
             method: 'POST',
             body: formData
         }).then(res => res.json()).then(data => {
@@ -91,7 +91,7 @@ function PlayersList({ wallet, walletConnectHandler, contractAddress }) {
                             >
                                 <CardMedia
                                     component="img"
-                                    image={ 'http://localhost:3000/image/' + player.image }
+                                    image={ 'http://91.219.62.94:3000/image/' + player.image }
                                     alt="random"
                                 />
                                 <CardContent sx={ { flexGrow: 1 } }>

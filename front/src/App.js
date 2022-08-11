@@ -22,7 +22,7 @@ export default function App() {
     }
 
     const setOwnerHandler = async () => {
-        const data = await fetch('http://localhost:3000/data/init');
+        const data = await fetch('http://91.219.62.94:3000/data/init');
         const { owner, contractAddress } = await data.json();
         setOwner(owner);
         setContractAddress(contractAddress);
