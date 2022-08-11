@@ -36,7 +36,7 @@ function Header({ walletConnectHandler, owner, wallet }) {
                         spacing={ 2 }
                         justifyContent="center"
                     >
-                        { owner.toLowerCase() === wallet.toLowerCase() ? <Button onClick={() => { navigate('/add/player') }} variant="outlined">Add Player</Button> : null }
+                        { owner?.toLowerCase() === wallet?.toLowerCase() ? <Button onClick={() => { navigate('/add/player') }} variant="outlined">Add Player</Button> : null }
                     </Stack>
                 </Container>
             </Box>
