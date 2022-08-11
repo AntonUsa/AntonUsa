@@ -17,7 +17,7 @@ function PlayerAdd({ owner, wallet }) {
     const [price, setPrice] = useState(0);
 
     useEffect(() => {
-        if(owner != wallet){
+        if(owner?.toLowerCase() != wallet?.toLowerCase()){
             navigate('/');
         }
     }, [])
