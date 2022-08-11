@@ -7,7 +7,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const app = express();
-
+const owner = process.env.OWNER_ADDRESS;
 const port = process.env.PORT || 3000;
 
 app.use(express.json());
@@ -17,7 +17,7 @@ app.use(cors());
 app.use(express.static(__dirname + '/public'));
 
 const isAdmin = (req, res, next) => {
-    if (req.body.owner === '0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266') {
+    if (req.body.owner.toLowerCase() == owner.toLowerCase()) {
         next();
     } else {
         res.status(403).send('Forbidden');
