@@ -4,10 +4,11 @@ import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 function Header({ walletConnectHandler, owner, wallet }) {
     const navigate = useNavigate();
+    const location = useLocation();
     return (
         <>
             <Box
@@ -36,7 +37,7 @@ function Header({ walletConnectHandler, owner, wallet }) {
                         spacing={ 2 }
                         justifyContent="center"
                     >
-                        { owner?.toLowerCase() === wallet?.toLowerCase() ? <Button onClick={() => { navigate('/add/player') }} variant="outlined">Add Player</Button> : null }
+                        { owner?.toLowerCase() === wallet?.toLowerCase() && location.pathname != '/add/player' ? <Button onClick={() => { navigate('/add/player') }} variant="outlined">Add Player</Button> : null }
                     </Stack>
                 </Container>
             </Box>
