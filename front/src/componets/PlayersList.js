@@ -99,7 +99,7 @@ function PlayersList({ wallet, walletConnectHandler, contractAddress }) {
                                         { player.firstName } { player.lastName }
                                     </Typography>
                                     <Typography sx={ { fontSize: '12px' } }>
-                                        ......{ player.owner.slice(10, player.length) }
+                                        ......{ player.owner.slice(15, player.length) }
                                     </Typography>
                                 </CardContent>
                                 <CardActions sx={ { justifyContent: 'space-between' } }>
